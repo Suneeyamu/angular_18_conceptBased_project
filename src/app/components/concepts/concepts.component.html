@@ -1,17 +1,19 @@
-<p>roles works!</p>
 <!-- we declare variables in ts file right, now we need to utilize/dispaly in our web page for that we can use data binding -->
+<h6>data biding</h6>
 
 <div class="row">
     <!-- interpolation {{}} just only for display porpose-->
     <div class="col-4">
-        <p>{{fristName}}</p>
+        <p>interpolatin : {{fristName}}</p>
     </div>
     <!-- property binding [] for input fields etc...to just display data in input fields-->
     <div class="col-4">
+        <label>property binding</label>
         <input type="text" class="form-control" [value]="fristName" />
     </div>
     <!-- two-way data binding [()]  it'll change in server as well-->
     <div class="col-4">
+        <label>two-way binding : </label>
         <input type="text" [(ngModel)]="fristName" />
     </div>
     <div class="col-4">
@@ -22,9 +24,99 @@
         <p>{{selectedCity}}</p> <!-- to check the selected data is updated where ever we are calling selectedCity -->
     </div>
     <!-- event Binding () -->
-<div class="col-4">
-<button class="btn btn-success" (click)="showWelcomeAlert()"> Show message</button>
-<button class="btn btn-success" (click)="showMessage('Hi Suni')"> Show message</button>
-<button class="btn btn-success" (click)="showMessage('Hi Ashoke')"> Show message</button>
+    <div class="col-4">
+        <button class="btn btn-success" (click)="showWelcomeAlert()"> Show message</button>
+        <button class="btn btn-success" (click)="showMessage('Hi Suni')"> Show message</button>
+        <button class="btn btn-success" (click)="showMessage('Hi Ashoke')"> Show message</button>
+    </div>
 </div>
+
+
+<!-- Directives : structural - *ngIf, *ngFor, *ngSwitch
+                  attribute - [ngClass], [ngStyle], [(ngModal)]-->
+<h6> Structural Directives in below 17v</h6>
+<div class="row">
+    <div class="col-12">
+        <div class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn" (click)=" buttonClicked('Roles')"
+                    [ngClass]="selectedComponet =='Roles' ? 'btn-success' : 'btn-primary'">Role</button>
+                <button type="button" class="btn btn-primary" (click)=" buttonClicked('Designation')"
+                    [ngClass]="selectedComponet == 'Designation' ? 'btn-success':'btn-primary'">Designation</button>
+            </div>
+            <!-- *ngIf -->
+            <div class="col-12" *ngIf="selectedComponet =='Roles'">
+                <app-roles></app-roles>
+            </div>
+            <div class="col-12" *ngIf="selectedComponet =='Designation'">
+                <app-designation></app-designation>
+            </div>
+        </div>
+    </div>
+    <!-- *ngFor -->
+     <h6>ngFor</h6>
+    <div calss="col-6">
+        <ul>
+            <li *ngFor="let item of items">{{item}}</li>
+        </ul>
+    </div>
+
+    <!-- *ngSwitch -->
+     <h6>ngSwitch</h6>
+    <div class="col-6">
+        <div [ngSwitch]="status">
+            <p *ngSwitchCase="'active'">The status is active</p>
+            <p *ngSwitchCase="'inActive'">The status is inactive</p>
+            <p *ngSwitchDefault> The status is unknown</p>
+        </div>
+    </div>
+</div>
+
+<h6> Structural Directives above 17v</h6>
+<!-- @if -->
+<h6>ngIf</h6>
+<div class="row">
+    <div class="col-12">
+        @if(selectedComponet =='Roles') {
+        <app-roles></app-roles>
+        }@else{
+        <app-designation></app-designation>
+        }
+    </div>
+    <!-- @for -->
+    <h6>ngFor</h6>
+    <div class="col-12">
+        @for(item of items; track item){
+        <p>{{item}}</p>
+        } <!-- from 17v track expression must in for directive -->
+    </div>
+    <!-- @switch -->
+    <h6>ngSwitch</h6>
+    <div class="col-12">
+        @switch(status){
+        @case("active") {
+        <p>The status is active</p>
+        }
+        @case("inActive"){
+        <p>The status is inactive</p>
+        }
+        @default{
+        <p> The status is unknown</p>
+        }
+        }
+    </div>
+</div>
+
+<h6>Attribute Directives</h6>
+<!-- ngStyle -->
+<div class="row">
+    <div class="col-6" [ngStyle] = "{'height' : '140px', 'background-color' : backgroundColor, 'font-size': fontSize}">
+Update Style property 
+    </div>
+    <div class="col-6">
+        <button class="btn btn-primary" (click) = "updateStyle()">
+            Update Style
+        </button>
+    </div>
+
 </div>
